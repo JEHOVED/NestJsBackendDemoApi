@@ -14,10 +14,11 @@ export class UsersController {
     }
 
     //obtiene un id por medio del parametro en la url
-    @Get('/:id')
+    @Get('/indv/:id')
     getUser(@Param('id') id: string){
         console.log("id Entrante", id);
-        return this.usersServices.getUser(id);
+        //return this.usersServices.getUser(id);
+        return;
     }
 
     //obtener los parametros por medio de un query
@@ -29,7 +30,7 @@ export class UsersController {
     }
 
 
-    @Get('/')
+    @Get('/todos')
     getAllUsers(){
         return this.usersServices.getAllUsers();
     }
@@ -39,10 +40,11 @@ export class UsersController {
     //los parametros por medio del CreateUserDto
     //obtiene el modelo por medio del body
     @Post('')
-    @UsePipes(new ValidationPipe)
+    //@UsePipes(new ValidationPipe)
     createUser(@Body() usuario: CreateUserDto){
         
-        return this.usersServices.createUser(usuario);   
+        return this.usersServices.createUser(usuario); 
+          
     }
 
     

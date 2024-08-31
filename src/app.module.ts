@@ -13,7 +13,7 @@ import { ConfigModule } from '@nestjs/config';
       envFilePath: '.env',
       isGlobal: true,
       
-    }
+    }, 
   )],
   
 })

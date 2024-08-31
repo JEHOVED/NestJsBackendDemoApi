@@ -1,10 +1,16 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Users } from './users.interface';
 import { CreateUserDto } from './dto/create-user.dto';
+import { PrismaService } from 'src/prisma.service';
+import { User, Prisma } from '@prisma/client';
+import { AnyAaaaRecord } from 'dns';
 
 @Injectable()
 export class UsersService {
 
+    constructor(private prisma: PrismaService) {}
+
+            
+    
     //se crea el arreglo de tipo usuarios inicializandolo en blanco
     private listadoUsuarios : CreateUserDto[] = [];
 
@@ -23,16 +29,18 @@ export class UsersService {
 
     //se crea un objeto de tipo interfaz, llamado usuarios (un arreglo)
     // y debe de retornar un arreglo de usuarios
-    getAllUsers(): CreateUserDto[]{
-        console.log("listado usuarios", this.listadoUsuarios);
-        return this.listadoUsuarios;
-
+    getAllUsers() {
+        
+        return this.prisma.user.findMany();
     }
 
     //el servicio espera de parametro un tipo Users
-    createUser(usuario: CreateUserDto){ 
-        this.listadoUsuarios.push(usuario);
-        return "Usuario Creado" + usuario;
+    createUser(usuario: any){ 
+
+        
+        return this.prisma.user.create({
+            data: usuario
+        });
     }
 
     updateUser(){
