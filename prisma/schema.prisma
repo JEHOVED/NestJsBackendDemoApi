@@ -14,11 +14,12 @@ datasource db {
 }
 
 model User{
-  id        String  @id @default(cuid())
-  nombres    String
-  apellidos  String
-  direccion  String
-  edad       Int 
-  fechaCreacion   DateTime @default(now())
-  fechaActualizacion DateTime @updatedAt
+  Id        Int  @id @default(autoincrement())
+  Nombres    String
+  Apellidos  String
+  Direccion  String
+  Edad       Int 
+  Correo     String
+  FechaCreacion   DateTime @default(now())
+  FechaActualizacion DateTime @updatedAt
 }

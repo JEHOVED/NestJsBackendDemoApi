@@ -7,3 +7,7 @@ Comandos para iniciar prisma
 npx prisma init
 Comando para migracion de datos
 npx prisma migrate dev --name init
+
+
+
+DATABASE_URL="postgresql://postgres:123456@localhost:5432/NESTJSBACKEND_DB?schema=public"

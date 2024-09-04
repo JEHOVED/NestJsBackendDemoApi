@@ -3,25 +3,25 @@ import { IsString, IsNumber, MinLength, MaxLength, IsEmail } from "class-validat
 
 
 export class CreateUserDto {
-    @IsString()
-    id: string;
+    
+    Id ?: number;
     
     @MinLength(3)
     @MaxLength(50)
     @IsString()
-    nombres: string;
+    Nombres: string;
 
     @MinLength(3)
     @MaxLength(50)
     @IsString()
-    apellidos: string;
+    Apellidos: string;
     
     @IsString()
-    direccion: string;
+    Direccion: string;
 
     @IsNumber()
-    edad: number;
+    Edad: number;
     
     @IsEmail()
-    correo ?: string;
+    Correo : string;
 }

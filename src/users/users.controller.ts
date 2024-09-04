@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, ParseBoolPipe, ParseIntPipe, Patch, Post, Put, Query, UsePipes, ValidationPipe } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -14,11 +15,9 @@ export class UsersController {
     }
 
     //obtiene un id por medio del parametro en la url
-    @Get('/indv/:id')
-    getUser(@Param('id') id: string){
-        console.log("id Entrante", id);
-        //return this.usersServices.getUser(id);
-        return;
+    @Get('/id/:id')
+    getUser(@Param('id', ParseIntPipe) id: number){
+        return this.usersServices.getUser(id);
     }
 
     //obtener los parametros por medio de un query
@@ -30,6 +29,7 @@ export class UsersController {
     }
 
 
+    //ruta para obtener todos
     @Get('/todos')
     getAllUsers(){
         return this.usersServices.getAllUsers();
@@ -39,18 +39,18 @@ export class UsersController {
     //UsePipes tiene como funcion la validación de 
     //los parametros por medio del CreateUserDto
     //obtiene el modelo por medio del body
-    @Post('')
-    //@UsePipes(new ValidationPipe)
+    @Post('/crear')
+    @UsePipes(new ValidationPipe)
     createUser(@Body() usuario: CreateUserDto){
-        
         return this.usersServices.createUser(usuario); 
           
     }
 
     
-    @Put('')
-    updateUser(){
-        return this.usersServices.updateUser();
+    @Put('/actualizar')
+    @UsePipes(new ValidationPipe)
+    updateUser(@Body() usuario: UpdateUserDto){
+        return this.usersServices.updateUser(usuario.Id, usuario);
     }
 
     

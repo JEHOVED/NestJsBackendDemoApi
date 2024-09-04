@@ -1,19 +1,17 @@
-import { IsString, IsNumber } from "class-validator";
+import { IsString, IsNumber, MinLength, MaxLength, IsEmail, isNumber } from "class-validator";
 
 
 export class UpdateUserDto {
-    @IsString()
-    id: string;
-    
-    @IsString()
-    nombres: string;
-    
-    @IsString()
-    apellidos: string;
-    
-    @IsString()
-    direccion: string;
-
     @IsNumber()
-    edad: number;
+    Id : number;
+    
+    Nombres ?: string;
+
+    Apellidos ?: string;
+    
+    Direccion ?: string;
+
+    Edad ?: number;
+    
+    Correo ?: string;
 }
