@@ -54,9 +54,11 @@ export class UsersController {
     }
 
     
-    @Delete('')
-    deteleUser(){
-        return this.usersServices.deleteUser();
+    @Delete('/eliminar')
+    @UsePipes(new ValidationPipe)
+    deteleUser(@Body() usuario: UpdateUserDto)
+    {
+        return this.usersServices.deleteUser(usuario.Id, usuario);
     }
 
     @Patch('')

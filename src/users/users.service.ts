@@ -4,32 +4,21 @@ import { PrismaService } from 'src/prisma.service';
 import { User, Prisma } from '@prisma/client';
 import { AnyAaaaRecord } from 'dns';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Not } from 'typeorm';
 
 @Injectable()
 export class UsersService {
 
-    constructor(private prisma: PrismaService) {}
-
-            
-    
+    constructor(private servicioPrisma: PrismaService) {}
     //se crea el arreglo de tipo usuarios inicializandolo en blanco
-    //private listadoUsuarios : CreateUserDto[] = [];
-
     //metodo para obtener un usuario, por medio de parametro id
     async getUser(Id: number): Promise <CreateUserDto> {
-        
-        console.log("usuario entrante con id", Id);
-        console.log("tipo de ", typeof(Id));
-        // let usuarioEncontrado = this.listadoUsuarios.find(usuario => usuario.Id == id);
-        // console.log("usuario encontrado", usuarioEncontrado);
-
-        let usuarioEncontrado = await this.prisma.user.findUnique({
+        let usuarioEncontrado = await this.servicioPrisma.user.findUnique({
             where: {
                 Id
             }
         })
 
-        console.log("usuario encontrado", usuarioEncontrado);
         if(!usuarioEncontrado){
             throw new NotFoundException("La tarea con ese ID "+ Id + " no fue encontrada");
         }
@@ -39,34 +28,44 @@ export class UsersService {
     //se crea un objeto de tipo interfaz, llamado usuarios (un arreglo)
     // y debe de retornar un arreglo de usuarios
     getAllUsers() {
-        return this.prisma.user.findMany();
+        return this.servicioPrisma.user.findMany();
     }
 
     //el servicio espera de parametro un tipo Users
     createUser(usuario: CreateUserDto){ 
-
-        
-        return this.prisma.user.create({
+        return this.servicioPrisma.user.create({
             data: usuario
         });
     }
 
     async updateUser(Id: number, usuario: UpdateUserDto): Promise <UpdateUserDto>
     {
-        
-        let actualizarUsuario = await this.prisma.user.update({
+        let actualizarUsuario = await this.servicioPrisma.user.update({
             where: {
                 Id
             },
             data: usuario
         });
 
+        if(!actualizarUsuario){
+            throw new NotFoundException ("No fue posible actualizar el objeto "+ Id);
+        }
         return actualizarUsuario;
-        
     }
 
-    deleteUser(){
-        return "eliminando Usuario";
+    async deleteUser(Id: number, usuario: UpdateUserDto){
+        
+        let eliminarUsuario = await this.servicioPrisma.user.delete({
+            where:{
+                Id
+            }
+        })
+        
+        if(!eliminarUsuario){
+            throw new NotFoundException("El objeto no existe" + Id);
+        }
+
+        return eliminarUsuario;
     }
 
     patchUser(){
