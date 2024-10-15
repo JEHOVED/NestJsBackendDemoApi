@@ -1,6 +1,6 @@
 import { Catch, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { User, Prisma } from '@prisma/client';
 import { AnyAaaaRecord } from 'dns';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -65,6 +65,7 @@ export class UsersService {
             throw new NotFoundException("El objeto no existe" + Id);
         }
 
+        3
         return eliminarUsuario;
     }
 

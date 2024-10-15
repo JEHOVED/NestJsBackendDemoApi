@@ -22,6 +22,5 @@ export class CreateUserDto {
     @IsNumber()
     Edad: number;
     
-    @IsEmail()
-    Correo : string;
+    
 }

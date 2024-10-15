@@ -19,7 +19,13 @@ model User{
   Apellidos  String
   Direccion  String
   Edad       Int 
-  Correo     String
   FechaCreacion   DateTime @default(now())
   FechaActualizacion DateTime @updatedAt
+}
+
+model AuthUser{
+  idUser String @id @default(uuid())
+  email String @unique
+  password String 
+
 }

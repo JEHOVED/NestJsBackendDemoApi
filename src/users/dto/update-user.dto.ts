@@ -5,13 +5,12 @@ export class UpdateUserDto {
     @IsNumber()
     Id : number;
     
-    Nombres ?: string;
+    Nombres : string;
 
-    Apellidos ?: string;
+    Apellidos : string;
     
-    Direccion ?: string;
+    Direccion : string;
 
-    Edad ?: number;
+    Edad : number;
     
-    Correo ?: string;
 }
